@@ -1,0 +1,207 @@
+{
+  "id": "AXyfM37pJ7yNQx-Ch4ZN",
+  "name": "SpringCloudNetflix",
+  "conditions": [
+    {
+      "id": "AXyYxWRuYwVcv2blUA6v",
+      "metric": "coverage",
+      "op": "LT",
+      "error": "80"
+    },
+    {
+      "id": "AXyZnimwYcKn1ePiXq1g",
+      "metric": "new_coverage",
+      "op": "LT",
+      "error": "80"
+    },
+    {
+      "id": "AXyZnvoPYcKn1ePiXq1h",
+      "metric": "new_duplicated_blocks",
+      "op": "GT",
+      "error": "100"
+    },
+    {
+      "id": "AXyZn1LUYcKn1ePiXq1i",
+      "metric": "duplicated_blocks",
+      "op": "GT",
+      "error": "100"
+    },
+    {
+      "id": "AXyZoXh1YcKn1ePiXq1k",
+      "metric": "duplicated_lines_density",
+      "op": "GT",
+      "error": "20"
+    },
+    {
+      "id": "AXyZoeGcYcKn1ePiXq1l",
+      "metric": "new_duplicated_lines_density",
+      "op": "GT",
+      "error": "20"
+    },
+    {
+      "id": "AXyZoncgYcKn1ePiXq1m",
+      "metric": "new_maintainability_rating",
+      "op": "GT",
+      "error": "1"
+    },
+    {
+      "id": "AXyZoqdaYcKn1ePiXq1n",
+      "metric": "sqale_rating",
+      "op": "GT",
+      "error": "1"
+    },
+    {
+      "id": "AXyZsQnZYcKn1ePiXq1q",
+      "metric": "new_reliability_rating",
+      "op": "GT",
+      "error": "1"
+    },
+    {
+      "id": "AXyZshP0YcKn1ePiXq1r",
+      "metric": "reliability_rating",
+      "op": "GT",
+      "error": "1"
+    },
+    {
+      "id": "AXyZs2giYcKn1ePiXq1s",
+      "metric": "new_blocker_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": "AXyZs4rgYcKn1ePiXq1t",
+      "metric": "blocker_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": "AXyZs9lfYcKn1ePiXq1u",
+      "metric": "new_critical_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": "AXyZtAUwYcKn1ePiXq1v",
+      "metric": "critical_violations",
+      "op": "GT",
+      "error": "0"
+    },
+    {
+      "id": "AXyZtN92YcKn1ePiXq1w",
+      "metric": "new_major_violations",
+      "op": "GT",
+      "error": "5"
+    },
+    {
+      "id": "AXyZtRHyYcKn1ePiXq1x",
+      "metric": "major_violations",
+      "op": "GT",
+      "error": "5"
+    },
+    {
+      "id": "AXyZtnDhYcKn1ePiXq1y",
+      "metric": "new_minor_violations",
+      "op": "GT",
+      "error": "15"
+    },
+    {
+      "id": "AXyZtqBJYcKn1ePiXq1z",
+      "metric": "minor_violations",
+      "op": "GT",
+      "error": "5"
+    },
+    {
+      "id": "AXyZwzfcYcKn1ePiXq10",
+      "metric": "new_security_hotspots_reviewed",
+      "op": "LT",
+      "error": "100"
+    },
+    {
+      "id": "AXyZw4ImYcKn1ePiXq11",
+      "metric": "security_hotspots_reviewed",
+      "op": "LT",
+      "error": "100"
+    },
+    {
+      "id": "AXyZxBZIYcKn1ePiXq12",
+      "metric": "new_security_rating",
+      "op": "GT",
+      "error": "1"
+    },
+    {
+      "id": "AXyZxEYVYcKn1ePiXq13",
+      "metric": "security_rating",
+      "op": "GT",
+      "error": "1"
+    },
+    {
+      "id": "AXyZxIC0YcKn1ePiXq14",
+      "metric": "new_security_review_rating",
+      "op": "GT",
+      "error": "1"
+    },
+    {
+      "id": "AXyZxKIpYcKn1ePiXq15",
+      "metric": "security_review_rating",
+      "op": "GT",
+      "error": "1"
+    },
+    {
+      "id": "AXyZx05xYcKn1ePiXq16",
+      "metric": "new_sqale_debt_ratio",
+      "op": "GT",
+      "error": "5"
+    },
+    {
+      "id": "AXyZyCLjYcKn1ePiXq18",
+      "metric": "sqale_debt_ratio",
+      "op": "GT",
+      "error": "5"
+    },
+    {
+      "id": "AXyZyJggYcKn1ePiXq19",
+      "metric": "new_info_violations",
+      "op": "GT",
+      "error": "25"
+    },
+    {
+      "id": "AXyZyOqeYcKn1ePiXq1-",
+      "metric": "info_violations",
+      "op": "GT",
+      "error": "25"
+    },
+    {
+      "id": "AXyZybshYcKn1ePiXq2A",
+      "metric": "new_bugs",
+      "op": "GT",
+      "error": "5"
+    },
+    {
+      "id": "AXyZygxDYcKn1ePiXq2B",
+      "metric": "bugs",
+      "op": "GT",
+      "error": "5"
+    },
+    {
+      "id": "AXyZyj_SYcKn1ePiXq2C",
+      "metric": "new_code_smells",
+      "op": "GT",
+      "error": "20"
+    },
+    {
+      "id": "AXyZymnYYcKn1ePiXq2D",
+      "metric": "code_smells",
+      "op": "GT",
+      "error": "20"
+    }
+  ],
+  "isBuiltIn": false,
+  "actions": {
+    "rename": true,
+    "setAsDefault": false,
+    "copy": true,
+    "associateProjects": false,
+    "delete": false,
+    "manageConditions": true
+  }
+}
