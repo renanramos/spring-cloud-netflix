@@ -84,8 +84,8 @@ create_quality_gate() {
 
   ## Adding all conditions of the JSON file
   printf "INFO adding all conditions of cnes-quality-gate.json to the gate.\n"
-  len=$(jq '(.conditions | length)' ./scripts/quality_gate_custom.json)
-  quality_gate=$(jq '(.conditions)' ./scripts/quality_gate_custom.json)
+  len=$(jq '(.conditions | length)' ./scripts/custom_quality_gate.json)
+  quality_gate=$(jq '(.conditions)' ./scripts/custom_quality_gate.json)
   for i in $(seq 0 $((len - 1))); do
     metric=$(echo "$quality_gate" | jq -r '(.['"$i"'].metric)')
     op=$(echo "$quality_gate" | jq -r '(.['"$i"'].op)')
