@@ -1,13 +1,14 @@
-package br.com.renanrramossi.product.core.usecase.gateway;
+package br.com.renanrramossi.product.core.usecase;
 
 import br.com.renanrramossi.product.core.usecase.dto.ProductForm;
 import br.com.renanrramossi.product.interfaceadapter.dto.ProductDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface ProductGateway {
-
+public interface ProductUseCase {
   ProductDTO create(final ProductForm productForm);
+
+  void delete(final Long id);
 
   Page<ProductDTO> findAll(final Pageable pageable);
 
@@ -15,5 +16,4 @@ public interface ProductGateway {
 
   ProductDTO update(final ProductForm productForm);
 
-  void delete(final Long id);
 }

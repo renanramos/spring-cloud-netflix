@@ -8,26 +8,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "product")
+@Table
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDomain implements Serializable {
+public class Product implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(name = "name", nullable = false)
+  @Column(name = "name")
   private String name;
 
-  @Column(name = "stock", nullable = false, length = 20)
+  @Column(name = "stock", length = 20)
   private Integer stock;
 
-  @Column(name = "prico", nullable = false)
-  private Double prico;
+  @Column(name = "price")
+  private Double price;
 }
