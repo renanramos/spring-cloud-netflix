@@ -11,16 +11,16 @@ import org.junit.jupiter.api.Test;
 
 class ProductDomainMapperTest {
 
+  public static final long ID = 1L;
+  public static final int ESTOQUE = 10;
+  public static final String PRODUCT_1 = "Product 1";
+  public static final double PRECO = BigDecimal.ONE.doubleValue();
+
   @Test
   void mapProductDomainFrom_withProductForm_shouldReturnProductDomain() {
-    final ProductForm productForm = ProductForm.builder()
-        .id(1L)
-        .estoque(10)
-        .nome("Product 1")
-        .preco(BigDecimal.ONE.doubleValue())
-        .build();
+    final ProductForm productForm = getProductForm();
 
-    final Product product = ProductDomainMapper.INSTANCE.mapProductDomainFrom(productForm);
+    final Product product = ProductDomainMapper.INSTANCE.mapProductDomainFromProductForm(productForm);
 
     assertThat(product).isNotNull();
     assertThat(product.getId()).isEqualTo(productForm.getId());
@@ -30,20 +30,43 @@ class ProductDomainMapperTest {
   }
 
   @Test
-  void mapProductDomainFrom_withProductDTO_shouldReturnProductDomain() {
-    final ProductDTO productDTO = ProductDTO.builder()
-        .id(1L)
-        .estoque(10)
-        .nome("Product 1")
-        .preco(BigDecimal.ONE.doubleValue())
-        .build();
+  void mapProductDomainFrom_withNullProductForm_shouldReturnNull() {
+    assertThat(ProductDomainMapper.INSTANCE.mapProductDomainFromProductForm(null)).isNull();
+  }
 
-    final Product product = ProductDomainMapper.INSTANCE.mapProductDomainFrom(productDTO);
+  @Test
+  void mapProductDomainFrom_withProductDTO_shouldReturnProductDomain() {
+    final ProductDTO productDTO = getProductDTO();
+
+    final Product product = ProductDomainMapper.INSTANCE.mapProductDomainFromProductDTO(productDTO);
 
     assertThat(product).isNotNull();
     assertThat(product.getId()).isEqualTo(productDTO.getId());
     assertThat(product.getStock()).isEqualTo(productDTO.getEstoque());
     assertThat(product.getName()).isEqualTo(productDTO.getNome());
     assertThat(product.getPrice()).isEqualTo(productDTO.getPreco().doubleValue());
+  }
+
+  @Test
+  void mapProductDomainFrom_withNullProductDTO_shouldReturnNull() {
+    assertThat(ProductDomainMapper.INSTANCE.mapProductDomainFromProductDTO(null)).isNull();
+  }
+
+  private ProductDTO getProductDTO() {
+    return ProductDTO.builder()
+        .id(ID)
+        .estoque(ESTOQUE)
+        .nome(PRODUCT_1)
+        .preco(PRECO)
+        .build();
+  }
+
+  private ProductForm getProductForm() {
+    return ProductForm.builder()
+        .id(ID)
+        .estoque(ESTOQUE)
+        .nome(PRODUCT_1)
+        .preco(PRECO)
+        .build();
   }
 }

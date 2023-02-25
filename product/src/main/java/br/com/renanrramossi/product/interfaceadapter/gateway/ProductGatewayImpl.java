@@ -21,7 +21,7 @@ public class ProductGatewayImpl implements ProductGateway {
   @Override
   public ProductDTO create(final ProductForm productForm) {
 
-    final Product product = ProductDomainMapper.INSTANCE.mapProductDomainFrom(productForm);
+    final Product product = ProductDomainMapper.INSTANCE.mapProductDomainFromProductForm(productForm);
 
     return ProductDtoMapper.INSTANCE.mapProductDtoFrom(productRepository.save(product));
   }

@@ -16,10 +16,10 @@ public interface ProductDomainMapper {
   @Mapping(source = "nome", target = "name")
   @Mapping(source = "estoque", target = "stock")
   @Mapping(source = "preco", target = "price")
-  Product mapProductDomainFrom(final ProductForm productForm);
+  Product mapProductDomainFromProductForm(final ProductForm productForm);
 
   @Mapping(source = "nome", target = "name")
   @Mapping(source = "estoque", target = "stock")
   @Mapping(source = "preco", target = "price")
-  Product mapProductDomainFrom(final ProductDTO productDTO);
+  Product mapProductDomainFromProductDTO(final ProductDTO productDTO);
 }
