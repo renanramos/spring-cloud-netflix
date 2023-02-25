@@ -16,6 +16,6 @@ public interface ProductDtoMapper {
   @Mapping(source = "name", target = "nome")
   @Mapping(source = "stock", target = "estoque")
   @Mapping(source = "price", target = "preco")
-  ProductDTO mapProductDtoFrom(final Product product);
+  ProductDTO mapProductDtoFromProduct(final Product product);
 
 }

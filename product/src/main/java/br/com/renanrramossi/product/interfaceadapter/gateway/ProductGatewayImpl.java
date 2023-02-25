@@ -23,14 +23,14 @@ public class ProductGatewayImpl implements ProductGateway {
 
     final Product product = ProductDomainMapper.INSTANCE.mapProductDomainFromProductForm(productForm);
 
-    return ProductDtoMapper.INSTANCE.mapProductDtoFrom(productRepository.save(product));
+    return ProductDtoMapper.INSTANCE.mapProductDtoFromProduct(productRepository.save(product));
   }
 
   @Override
   public Page<ProductDTO> findAll(final Pageable pageable) {
     var page = productRepository.findAll(pageable);
 
-    return page.map(ProductDtoMapper.INSTANCE::mapProductDtoFrom);
+    return page.map(ProductDtoMapper.INSTANCE::mapProductDtoFromProduct);
   }
 
   @Override
@@ -38,7 +38,7 @@ public class ProductGatewayImpl implements ProductGateway {
 
     final Product product = getProductDomainById(id);
 
-    return ProductDtoMapper.INSTANCE.mapProductDtoFrom(product);
+    return ProductDtoMapper.INSTANCE.mapProductDtoFromProduct(product);
   }
 
   @Override
@@ -47,7 +47,7 @@ public class ProductGatewayImpl implements ProductGateway {
 
     final Product productDomain = productRepository.save(product);
 
-    return ProductDtoMapper.INSTANCE.mapProductDtoFrom(productDomain);
+    return ProductDtoMapper.INSTANCE.mapProductDtoFromProduct(productDomain);
   }
 
   @Override
