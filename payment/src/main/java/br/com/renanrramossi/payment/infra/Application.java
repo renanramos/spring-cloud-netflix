@@ -1,13 +1,13 @@
-package br.com.renanrramossi.payment;
+package br.com.renanrramossi.payment.infra;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PaymentApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PaymentApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
