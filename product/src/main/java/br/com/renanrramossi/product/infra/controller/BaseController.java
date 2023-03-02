@@ -43,4 +43,8 @@ public abstract class BaseController {
     return assembler.toModel(products);
   }
 
+  protected void setSelfLink(final ProductDTO productDTO) {
+    productDTO.add(linkTo(methodOn(ProductController.class)
+        .findById(productDTO.getId())).withSelfRel());
+  }
 }

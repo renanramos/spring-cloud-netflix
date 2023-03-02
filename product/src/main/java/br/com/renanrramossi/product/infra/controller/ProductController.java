@@ -1,7 +1,5 @@
 package br.com.renanrramossi.product.infra.controller;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import br.com.renanrramossi.product.core.usecase.dto.ProductForm;
 import br.com.renanrramossi.product.infra.delegate.ProductDelegate;
 import br.com.renanrramossi.product.interfaceadapter.dto.ProductDTO;
@@ -37,9 +35,15 @@ public class ProductController extends BaseController {
 
   private final PagedResourcesAssembler<ProductDTO> assembler;
 
-  @PostMapping
+  @PostMapping(produces = {"application/json", "application/xml", "application/x-yaml"},
+               consumes = {"application/json", "application/xml", "application/x-yaml"})
   public ResponseEntity<ProductDTO> create(@NonNull @RequestBody final ProductForm productForm) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(productDelegate.create(productForm));
+
+    final ProductDTO productDTO = productDelegate.create(productForm);
+
+    setSelfLink(productDTO);
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(productDTO);
   }
 
   @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
@@ -61,15 +65,21 @@ public class ProductController extends BaseController {
   }
 
   @GetMapping(value = "/{productId}", produces = {"application/json", "application/xml", "application/x-yaml"})
-  public ProductDTO findById(@PathVariable("productId") final Long productId) {
+  public ResponseEntity<ProductDTO> findById(@PathVariable("productId") final Long productId) {
     final ProductDTO productDTO = productDelegate.findById(productId);
-    productDTO.add(linkTo(methodOn(ProductController.class)
-        .findById(productId)).withSelfRel());
-    return productDTO;
+
+    setSelfLink(productDTO);
+
+    return ResponseEntity.status(HttpStatus.OK).body(productDTO);
   }
 
   @PutMapping(value = "/{productId}")
-  public ProductDTO update(@PathVariable("productId") final Long productId, final ProductForm productForm) {
-    return productDelegate.update(productForm);
+  public ResponseEntity<ProductDTO> update(@PathVariable("productId") final Long productId, @RequestBody final ProductForm productForm) {
+    productForm.setId(productId);
+    final ProductDTO productDTO = productDelegate.update(productForm);
+
+    setSelfLink(productDTO);
+
+    return ResponseEntity.status(HttpStatus.ACCEPTED).body(productDTO);
   }
 }

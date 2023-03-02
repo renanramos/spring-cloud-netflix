@@ -1,9 +1,13 @@
 server:
   port: 8080
+  servlet:
+    context-path: /crud
   error:
     include-message: always
 
 spring:
+  application:
+    name: crud
   datasource:
     platform: h2
     url: jdbc:h2:mem:products
@@ -16,12 +20,14 @@ spring:
     generate-ddp: true
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
         validator:
           apply_to_ddl: false
+  jmx:
+    enabled: true
   h2:
     console:
       enabled: true
