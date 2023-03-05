@@ -1,4 +1,4 @@
-package br.com.renanrramossi.product.core.usecase.exception;
+package br.com.renanrramossi.payment.core.usecase.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
