@@ -34,5 +34,5 @@ public class SaleDTO extends RepresentationModel<SaleDTO> implements Serializabl
   private Double total;
 
   @JsonProperty("produtos")
-  private List<ProductSale> produtos;
+  private List<ProductSaleDTO> produtos;
 }

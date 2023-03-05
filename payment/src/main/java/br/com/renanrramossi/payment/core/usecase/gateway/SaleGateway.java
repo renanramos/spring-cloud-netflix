@@ -10,4 +10,6 @@ public interface SaleGateway {
   SaleDTO create(final Sale sale);
 
   Page<SaleDTO> findAll(final Pageable pageable);
+
+  SaleDTO findById(final Long id);
 }
