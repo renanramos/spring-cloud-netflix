@@ -34,7 +34,7 @@ public class ProductSale implements Serializable {
   private Integer amount;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "id")
+  @JoinColumn(name = "saleId")
   private Sale sale;
 
 }

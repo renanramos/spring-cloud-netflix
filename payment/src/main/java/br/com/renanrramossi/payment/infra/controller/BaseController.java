@@ -16,7 +16,7 @@ import org.springframework.hateoas.PagedModel;
 
 public abstract class BaseController {
 
-  private static final String ID = "id";
+  private static final String DATA = "date";
   private static final String DESC = "desc";
 
   protected Direction getSortDirection(final String direction) {
@@ -24,7 +24,7 @@ public abstract class BaseController {
   }
 
   protected Pageable getPageable(final int page, final int limit, final String direction) {
-    return PageRequest.of(page, limit, Sort.by(getSortDirection(direction), ID));
+    return PageRequest.of(page, limit, Sort.by(getSortDirection(direction), DATA));
   }
 
   private void orderList(final List<SaleDTO> items) {

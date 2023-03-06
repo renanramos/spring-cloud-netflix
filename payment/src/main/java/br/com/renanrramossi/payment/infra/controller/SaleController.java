@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/sale")
+@RequestMapping("/sales")
 @RequiredArgsConstructor
 public class SaleController extends BaseController {
 
