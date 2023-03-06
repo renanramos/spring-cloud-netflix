@@ -1,9 +1,9 @@
-package br.com.renanrramossi.payment.core.usecase.gateway;
+package br.com.renanrramossi.payment.core.usecase;
 
 import br.com.renanrramossi.payment.core.domain.Product;
 import br.com.renanrramossi.payment.interfaceadapter.dto.ProductDTO;
 
-public interface ProductGateway {
+public interface ProductUseCase {
 
   ProductDTO create(final Product product);
 

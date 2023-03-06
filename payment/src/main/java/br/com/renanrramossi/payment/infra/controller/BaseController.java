@@ -14,7 +14,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 
-public abstract class BaseController {
+public abstract class BaseController<T> {
 
   private static final String DATA = "date";
   private static final String DESC = "desc";
@@ -27,24 +27,18 @@ public abstract class BaseController {
     return PageRequest.of(page, limit, Sort.by(getSortDirection(direction), DATA));
   }
 
-  private void orderList(final List<SaleDTO> items) {
-    items
-        .forEach(item ->
-            item.add(linkTo(methodOn(SaleController.class)
-                .findById(item.getId())).withSelfRel()));
+  protected PagedModel<EntityModel<T>> buildPagedModel(
+      final PagedResourcesAssembler<T> assembler,
+      final Page<T> items) {
+
+    orderList(items.toList());
+
+    return assembler.toModel(items);
   }
 
-  protected PagedModel<EntityModel<SaleDTO>> buildPagedModel(
-      final PagedResourcesAssembler<SaleDTO> assembler,
-      final Page<SaleDTO> saleDTOS) {
-
-    orderList(saleDTOS.toList());
-
-    return assembler.toModel(saleDTOS);
+  private void orderList(final List<T> items) {
+    items.forEach(this::setSelfLink);
   }
 
-  protected void setSelfLink(final SaleDTO saleDTO) {
-    saleDTO.add(linkTo(methodOn(SaleController.class)
-        .findById(saleDTO.getId())).withSelfRel());
-  }
+  protected abstract void setSelfLink(final T t);
 }

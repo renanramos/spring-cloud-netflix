@@ -7,6 +7,7 @@ import br.com.renanrramossi.payment.core.usecase.dto.SaleForm;
 import br.com.renanrramossi.payment.infra.delegate.SaleDelegate;
 import br.com.renanrramossi.payment.interfaceadapter.dto.SaleDTO;
 import br.com.renanrramossi.payment.interfaceadapter.mapper.SaleMapper;
+import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/sales")
 @RequiredArgsConstructor
-public class SaleController extends BaseController {
+public class SaleController extends BaseController<SaleDTO> {
 
   private final SaleDelegate saleDelegate;
 
@@ -36,7 +37,7 @@ public class SaleController extends BaseController {
   @GetMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
   public SaleDTO findById(@PathVariable("id") final Long id) {
     final SaleDTO saleDTO = saleDelegate.findById(id);
-    saleDTO.add(linkTo(methodOn(SaleController.class).findById(id)).withSelfRel());
+    setSelfLink(saleDTO);
     return saleDTO;
   }
 
@@ -64,4 +65,9 @@ public class SaleController extends BaseController {
     return ResponseEntity.status(HttpStatus.CREATED).body(saleDTO);
   }
 
+  @Override
+  protected void setSelfLink(final SaleDTO saleDTO)  {
+    saleDTO.add(linkTo(methodOn(SaleController.class)
+        .findById(saleDTO.getId())).withSelfRel());
+  }
 }
