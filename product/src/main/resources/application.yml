@@ -34,3 +34,8 @@ spring:
       path: /h2-console
       settings:
         web-allow-others: false
+
+crud:
+  rabbitmq:
+    exchange: crud.exchange
+    routingkey: crud.product.routingkey
