@@ -1,4 +1,4 @@
-package br.com.renanrramossi.payment.infra.config.rabbitMq;
+package br.com.renanrramossi.payment.infra.config.rabbitmq;
 
 import br.com.renanrramossi.payment.core.domain.Product;
 import br.com.renanrramossi.payment.interfaceadapter.dto.ProductDTO;
@@ -18,12 +18,7 @@ public class ProductReceiveMessage {
   private final ProductRepository productRepository;
 
   @RabbitListener(queues = {"${crud.rabbitmq.queue}"})
-  public void receiveMessage(final @Payload ProductDTO productDTO) {
-
-    final Product product = ProductMapper.INSTANCE.mapProductFrom(productDTO);
-
-    if (product != null) {
+  public void receiveMessage(final @Payload @NonNull Product product) {
       productRepository.save(product);
-    }
   }
 }

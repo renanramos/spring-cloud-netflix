@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import br.com.renanrramossi.payment.core.domain.Sale;
 import br.com.renanrramossi.payment.interfaceadapter.dto.SaleDTO;
 import br.com.renanrramossi.payment.interfaceadapter.mapper.SaleDTOMapper;
+import br.com.renanrramossi.payment.interfaceadapter.repository.ProductSaleRepository;
 import br.com.renanrramossi.payment.interfaceadapter.repository.SaleRepository;
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,6 +32,9 @@ class SaleGatewayImplTest {
 
   @Mock
   private SaleRepository mockSaleRepository;
+
+  @Mock
+  private ProductSaleRepository productSaleRepository;
 
   @Mock
   private Pageable mockPageable;
