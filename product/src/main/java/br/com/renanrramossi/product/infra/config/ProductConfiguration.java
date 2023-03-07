@@ -1,6 +1,7 @@
 package br.com.renanrramossi.product.infra.config;
 
 import br.com.renanrramossi.product.core.usecase.ProductUseCaseImpl;
+import br.com.renanrramossi.product.infra.config.rabbitmq.ProductSendMessage;
 import br.com.renanrramossi.product.infra.delegate.ProductDelegateImpl;
 import br.com.renanrramossi.product.interfaceadapter.gateway.ProductGatewayImpl;
 import br.com.renanrramossi.product.interfaceadapter.repository.ProductRepository;
@@ -16,11 +17,14 @@ public class ProductConfiguration {
   @NotNull
   private final ProductRepository productRepository;
 
+  @NotNull
+  private final ProductSendMessage productSendMessage;
+
   @Bean
   public ProductDelegateImpl productDelegate() {
 
     return new ProductDelegateImpl(
         new ProductUseCaseImpl(
-            new ProductGatewayImpl(productRepository)));
+            new ProductGatewayImpl(productRepository, productSendMessage)));
   }
 }

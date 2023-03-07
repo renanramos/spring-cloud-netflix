@@ -1,5 +1,6 @@
-package br.com.renanrramossi.product.infra.config.rabbitMq;
+package br.com.renanrramossi.product.infra.config.rabbitmq;
 
+import br.com.renanrramossi.product.core.domain.Product;
 import br.com.renanrramossi.product.interfaceadapter.dto.ProductDTO;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class ProductSendMessage {
   @NonNull
   public final RabbitTemplate rabbitTemplate;
 
-  public void sendMessage(final ProductDTO productDTO) {
-    rabbitTemplate.convertAndSend(exchange, routingkey, productDTO);
+  public void sendMessage(final Product product) {
+    rabbitTemplate.convertAndSend(exchange, routingkey, product);
   }
 }

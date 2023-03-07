@@ -1,4 +1,4 @@
-package br.com.renanrramossi.product.infra.config.rabbitMq;
+package br.com.renanrramossi.payment.infra.config.rabbitMq;
 
 import org.springframework.amqp.core.Exchange;
 import org.springframework.amqp.core.ExchangeBuilder;

@@ -34,6 +34,11 @@ spring:
       path: /h2-console
       settings:
         web-allow-others: false
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
 
 crud:
   rabbitmq:

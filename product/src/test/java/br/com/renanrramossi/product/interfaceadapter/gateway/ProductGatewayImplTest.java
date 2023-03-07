@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import br.com.renanrramossi.product.core.domain.Product;
 import br.com.renanrramossi.product.core.usecase.dto.ProductForm;
+import br.com.renanrramossi.product.infra.config.rabbitmq.ProductSendMessage;
 import br.com.renanrramossi.product.interfaceadapter.dto.ProductDTO;
 import br.com.renanrramossi.product.interfaceadapter.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,9 @@ class ProductGatewayImplTest {
 
   @Mock
   private ProductRepository mockProductRepository;
+
+  @Mock
+  private ProductSendMessage mockProductSendMessage;
 
   @InjectMocks
   private ProductGatewayImpl productGateway;

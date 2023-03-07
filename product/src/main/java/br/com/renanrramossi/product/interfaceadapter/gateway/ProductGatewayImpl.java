@@ -4,6 +4,7 @@ import br.com.renanrramossi.product.core.domain.Product;
 import br.com.renanrramossi.product.core.usecase.exception.ResourceNotFoundException;
 import br.com.renanrramossi.product.core.usecase.gateway.ProductGateway;
 import br.com.renanrramossi.product.core.usecase.dto.ProductForm;
+import br.com.renanrramossi.product.infra.config.rabbitmq.ProductSendMessage;
 import br.com.renanrramossi.product.interfaceadapter.dto.ProductDTO;
 import br.com.renanrramossi.product.interfaceadapter.mapper.ProductDomainMapper;
 import br.com.renanrramossi.product.interfaceadapter.mapper.ProductDtoMapper;
@@ -18,12 +19,17 @@ public class ProductGatewayImpl implements ProductGateway {
 
   private final ProductRepository productRepository;
 
+  private final ProductSendMessage productSendMessage;
+
   @Override
   public ProductDTO create(final ProductForm productForm) {
 
     final Product product = ProductDomainMapper.INSTANCE.mapProductDomainFromProductForm(productForm);
+    final ProductDTO productDTO = ProductDtoMapper.INSTANCE.mapProductDtoFromProduct(productRepository.save(product));
 
-    return ProductDtoMapper.INSTANCE.mapProductDtoFromProduct(productRepository.save(product));
+    productSendMessage.sendMessage(product);
+
+    return productDTO;
   }
 
   @Override
