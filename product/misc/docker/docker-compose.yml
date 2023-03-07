@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  sonarqube-custom:
+    build: ./sonar
+    ports:
+      - "9000:9000"
+    networks:
+      - spring-cloud-netflix
+    volumes:
+      - ./sonar/scripts/:/opt/sonarqube/scripts
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+    healthcheck:
+      interval: 5s
+      retries: 30
+      test: "curl -s -X GET localhost:9000/api/system/status"
+      timeout: 3s
+    entrypoint: [ "bash", "./scripts/entrypoint.bash" ]
+
+networks:
+  spring-cloud-netflix:
+    ipam:
+      config:
+        - subnet: 10.8.0.0/27
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_bundled-plugins:
