@@ -1,6 +1,6 @@
 package br.com.renanrramossi.auth.interfaceadapter.repository;
 
-import br.com.renanrramossi.auth.domain.Permission;
+import br.com.renanrramossi.auth.core.domain.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

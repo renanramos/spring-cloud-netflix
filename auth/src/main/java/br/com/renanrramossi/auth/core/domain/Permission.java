@@ -1,4 +1,4 @@
-package br.com.renanrramossi.auth.domain;
+package br.com.renanrramossi.auth.core.domain;
 
 import java.io.Serializable;
 import javax.persistence.Column;
