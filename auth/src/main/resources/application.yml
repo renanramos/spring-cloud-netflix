@@ -1,1 +1,42 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /auth
+  error:
+    include-message: always
 
+spring:
+  application:
+    name: auth
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:auth
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddp: true
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        validator:
+          apply_to_ddl: false
+  jmx:
+    enabled: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+
+security:
+  jwt:
+    token:
+      secret-key: chave_microservices  #chave de assinatura do token
+      expire-length: 360000
