@@ -22,7 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,8 +33,8 @@ public class User implements UserDetails, Serializable {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(name = "user_name", unique = true)
-  private String userName;
+  @Column(name = "username", unique = true)
+  private String username;
 
   @Column(name = "password", nullable = false)
   private String password;
@@ -78,7 +78,7 @@ public class User implements UserDetails, Serializable {
 
   @Override
   public String getUsername() {
-    return this.userName;
+    return this.username;
   }
 
   @Override

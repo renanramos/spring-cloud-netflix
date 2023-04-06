@@ -13,7 +13,7 @@ public class UserGatewayImpl implements UserGateway {
   private final UserRepository userRepository;
 
   @Override
-  public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+  public User loadUserByUsername(final String username) throws UsernameNotFoundException {
     var user = userRepository.findByUserName(username);
     verifyUser(username, user);
     return user;
