@@ -15,7 +15,7 @@ public final class JwtUtils {
   public static String extractUserNameFromToken(final String token, final String secretKey) {
     return Jwts.parser()
         .setSigningKey(secretKey)
-        .parseClaimsJwt(token)
+        .parseClaimsJws(token)
         .getBody()
         .getSubject();
   }
@@ -29,6 +29,8 @@ public final class JwtUtils {
   }
 
   public static boolean isValidToken(final String bearerToken) {
-    return bearerToken != null && bearerToken.startsWith(PREFIX_BEARER_TOKEN);
+    if (bearerToken == null || !bearerToken.startsWith(PREFIX_BEARER_TOKEN))
+      return false;
+    return true;
   }
 }

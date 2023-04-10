@@ -34,6 +34,9 @@ spring:
       path: /h2-console
       settings:
         web-allow-others: false
+  allowed:
+    resources: /h2-console/**
+
 
 security:
   jwt:

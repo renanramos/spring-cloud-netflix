@@ -1,41 +1,68 @@
 package br.com.renanrramossi.auth.infra.config.jwt;
 
-import static br.com.renanrramossi.auth.infra.config.jwt.JwtUtils.resolveToken;
-
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.UnsupportedJwtException;
 import java.io.IOException;
+import java.nio.charset.MalformedInputException;
+import java.util.Collections;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-@RequiredArgsConstructor
-public class JwtFilter extends GenericFilterBean {
+@Configuration
+public class JwtFilter extends OncePerRequestFilter {
 
-  private final JwtTokenProvider jwtTokenProvider;
+  private final String HEADER = "Authorization";
+  private final String PREFIX = "Bearer ";
+
+  private final String secretkey = "chave_microservices";
 
   @Override
-  public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain)
+  protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
       throws IOException, ServletException {
-    final String token = resolveToken((HttpServletRequest) servletRequest);
 
-    setAuthentication(token);
+    try {
+      if (checkJwtToken(request)) {
+        final Claims claims = validateToken(request);
+        setUpSpringAuthentication(claims);
+      } else {
+        SecurityContextHolder.clearContext();
+      }
 
-    filterChain.doFilter(servletRequest, servletResponse);
+      filterChain.doFilter(request, response);
+    } catch (ExpiredJwtException | UnsupportedJwtException | MalformedInputException exception) {
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+      response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
+    }
   }
 
-  private void setAuthentication(final String token) {
-    if (!jwtTokenProvider.isTokenExpired(token)) {
+  private void setUpSpringAuthentication(Claims claims) {
 
-      final Authentication authentication = jwtTokenProvider.getAuthentication(token);
+    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null,
+        Collections.emptyList());
+    SecurityContextHolder.getContext().setAuthentication(auth);
+  }
 
-      if (authentication != null) {
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-      }
-    }
+  private Claims validateToken(HttpServletRequest request) {
+    final String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
+
+    return Jwts.parser()
+        .setSigningKey(secretkey.getBytes())
+        .parseClaimsJws(jwtToken)
+        .getBody();
+  }
+
+  private boolean checkJwtToken(HttpServletRequest request) {
+    final String authenticationHeader = request.getHeader(HEADER);
+    if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX))
+      return false;
+    return true;
   }
 }
