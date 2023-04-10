@@ -1,4 +1,4 @@
-package br.com.renanrramossi.auth.interfaceadapter.dto;
+package br.com.renanrramossi.auth.infra.controller.entities;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
@@ -21,7 +21,7 @@ import lombok.Setter;
 public class UserForm implements Serializable {
 
   @JsonPropertyOrder("username")
-  private String userName;
+  private String username;
 
   @JsonPropertyOrder("password")
   private String password;

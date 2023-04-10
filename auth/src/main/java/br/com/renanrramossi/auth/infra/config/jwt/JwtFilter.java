@@ -1,35 +1,42 @@
 package br.com.renanrramossi.auth.infra.config.jwt;
 
+import static br.com.renanrramossi.auth.infra.config.jwt.JwtUtils.HEADER;
+import static br.com.renanrramossi.auth.infra.config.jwt.JwtUtils.isValidToken;
+import static br.com.renanrramossi.auth.infra.config.jwt.JwtUtils.resolveToken;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.UnsupportedJwtException;
 import java.io.IOException;
-import java.nio.charset.MalformedInputException;
 import java.util.Collections;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Configuration
+@EnableConfigurationProperties()
 public class JwtFilter extends OncePerRequestFilter {
 
-  private final String HEADER = "Authorization";
-  private final String PREFIX = "Bearer ";
-
-  private final String secretkey = "chave_microservices";
+  @Value("${security.jwt.token.secret-key}")
+  private final String SECRET_KEY = "chave_microservices";
 
   @Override
   protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
       throws IOException, ServletException {
 
+    final String token = request.getHeader(HEADER);
+
     try {
-      if (checkJwtToken(request)) {
+      if (isValidToken(token)) {
         final Claims claims = validateToken(request);
         setUpSpringAuthentication(claims);
       } else {
@@ -52,18 +59,11 @@ public class JwtFilter extends OncePerRequestFilter {
   }
 
   private Claims validateToken(HttpServletRequest request) {
-    final String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
-
+    final String jwtToken = resolveToken(request);
     return Jwts.parser()
-        .setSigningKey(secretkey.getBytes())
+        .setSigningKey(SECRET_KEY.getBytes())
         .parseClaimsJws(jwtToken)
         .getBody();
   }
 
-  private boolean checkJwtToken(HttpServletRequest request) {
-    final String authenticationHeader = request.getHeader(HEADER);
-    if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX))
-      return false;
-    return true;
-  }
 }

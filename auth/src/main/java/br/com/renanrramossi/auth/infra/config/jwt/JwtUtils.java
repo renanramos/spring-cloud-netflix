@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class JwtUtils {
 
+  public static final String HEADER = "Authorization";
   private static final String PREFIX_BEARER_TOKEN = "Bearer ";
 
   private JwtUtils() {
@@ -21,7 +22,7 @@ public final class JwtUtils {
   }
 
   public static String resolveToken(final HttpServletRequest request) {
-    final String bearerToken = request.getHeader("Authorization");
+    final String bearerToken = request.getHeader(HEADER);
     if (isValidToken(bearerToken)) {
       return bearerToken.substring(7);
     }
