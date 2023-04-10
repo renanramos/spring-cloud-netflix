@@ -34,10 +34,11 @@ public class JwtFilter extends OncePerRequestFilter {
         setUpSpringAuthentication(claims);
       } else {
         SecurityContextHolder.clearContext();
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
       }
 
       filterChain.doFilter(request, response);
-    } catch (ExpiredJwtException | UnsupportedJwtException | MalformedInputException exception) {
+    } catch (ExpiredJwtException | UnsupportedJwtException exception) {
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
       response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
     }

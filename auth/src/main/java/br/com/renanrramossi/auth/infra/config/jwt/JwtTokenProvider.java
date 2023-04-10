@@ -32,8 +32,6 @@ public class JwtTokenProvider {
   @Value("${security.jwt.token.expire-length}")
   private Long expireLength;
 
-//  @Qualifier("UserService")
-//  @Autowired
   private final UserDetailsService userDetailsService;
 
   @PostConstruct
