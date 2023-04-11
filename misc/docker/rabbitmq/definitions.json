@@ -1,0 +1,61 @@
+{
+  "rabbit_version": "3.8.30",
+  "rabbitmq_version": "3.8.30",
+  "product_name": "RabbitMQ",
+  "product_version": "3.8.30",
+  "users": [
+    {
+      "name": "admin",
+      "password_hash": "MAeW5BCcW6jT1/TMkg2FA3goxZzbvnWrX3itDGJLXd6KxcAG",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator",
+      "limits": {}
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "admin",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "topic_permissions": [],
+  "parameters": [],
+  "global_parameters": [
+    {
+      "name": "internal_cluster_id",
+      "value": "rabbitmq-cluster-id-wkRSOQxgZdFvQpEVT2FoVA"
+    }
+  ],
+  "policies": [],
+  "queues": [
+    {
+      "name": "crud.product.queue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "classic"
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "crud.exchange",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": []
+}
