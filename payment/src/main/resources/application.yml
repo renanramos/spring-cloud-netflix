@@ -44,3 +44,8 @@ crud:
   rabbitmq:
     exchange: crud.exchange
     queue: crud.product.queue
+
+security:
+  jwt:
+    token:
+      secret-key: chave_microservices  #chave de assinatura do token

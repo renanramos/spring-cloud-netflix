@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/products")
 @RestController
-@RequestMapping(path = "/products")
 public class ProductController extends BaseController {
 
   @NonNull
