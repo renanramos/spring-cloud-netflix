@@ -43,7 +43,6 @@ spring:
     compatibility-verifier:
       enabled: false
 
-
 crud:
   rabbitmq:
     exchange: crud.exchange
@@ -58,7 +57,5 @@ eureka:
   instance:
     hostname: localhost
   client:
-    registerWithEureka: false
-    fetchRegistry: false
     serviceUrl:
-      defaultZone: 'http://${eureka.instance.hostname}:8761/eureka/'
+      defaultZone: http://${eureka.instance.hostname}:8761/registry/eureka
