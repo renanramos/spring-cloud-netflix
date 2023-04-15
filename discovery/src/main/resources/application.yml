@@ -2,9 +2,17 @@ server:
   port: 8761
   servlet:
     context-path: /registry
+
 spring:
   application:
     name: registry
+  cloud:
+    config:
+      import-check:
+        enabled: false
+    compatibility-verifier:
+      enabled: false
+
 eureka:
   client:
     registerWithEureka: false

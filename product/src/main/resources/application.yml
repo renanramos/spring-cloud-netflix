@@ -1,13 +1,13 @@
 server:
   port: 8080
   servlet:
-    context-path: /crud
+    context-path: /products
   error:
     include-message: always
 
 spring:
   application:
-    name: crud
+    name: products
   datasource:
     platform: h2
     url: jdbc:h2:mem:products

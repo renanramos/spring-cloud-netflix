@@ -36,10 +36,23 @@ spring:
         web-allow-others: false
   allowed:
     resources: /h2-console/**
-
+  cloud:
+    config:
+      import-check:
+        enabled: false
+    compatibility-verifier:
+      enabled: false
+    loadbalancer: false
 
 security:
   jwt:
     token:
       secret-key: chave_microservices  #chave de assinatura do token
       expire-length: 360000
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/registry/eureka
