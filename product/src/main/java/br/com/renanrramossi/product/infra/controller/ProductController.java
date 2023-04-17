@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/products")
+@RequestMapping
 @RestController
 public class ProductController extends BaseController {
 
@@ -35,7 +35,7 @@ public class ProductController extends BaseController {
 
   private final PagedResourcesAssembler<ProductDTO> assembler;
 
-  @PostMapping(produces = {"application/json", "application/xml", "application/x-yaml"},
+  @PostMapping(path = "/products", produces = {"application/json", "application/xml", "application/x-yaml"},
                consumes = {"application/json", "application/xml", "application/x-yaml"})
   public ResponseEntity<ProductDTO> create(@NonNull @RequestBody final ProductForm productForm) {
 
@@ -46,7 +46,7 @@ public class ProductController extends BaseController {
     return ResponseEntity.status(HttpStatus.CREATED).body(productDTO);
   }
 
-  @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
+  @GetMapping(path = "/products", produces = {"application/json", "application/xml", "application/x-yaml"})
   public ResponseEntity<PagedModel<EntityModel<ProductDTO>>> findAll(@RequestParam(value = "page", defaultValue = "0") int page,
       @RequestParam(value = "limit", defaultValue = "10") int limit,
       @RequestParam(value = "direction", defaultValue = "asc") String direction) {
@@ -58,13 +58,13 @@ public class ProductController extends BaseController {
     return new ResponseEntity<>(buildPagedModel(assembler, products), HttpStatus.OK);
   }
 
-  @DeleteMapping(value = "/{productId}")
+  @DeleteMapping(value = "/products/{productId}")
   public ResponseEntity<Void> delete(@PathVariable("productId") final Long productId) {
       productDelegate.delete(productId);
       return ResponseEntity.status(HttpStatus.OK).build();
   }
 
-  @GetMapping(value = "/{productId}", produces = {"application/json", "application/xml", "application/x-yaml"})
+  @GetMapping(value = "/products/{productId}", produces = {"application/json", "application/xml", "application/x-yaml"})
   public ResponseEntity<ProductDTO> findById(@PathVariable("productId") final Long productId) {
     final ProductDTO productDTO = productDelegate.findById(productId);
 
@@ -73,7 +73,7 @@ public class ProductController extends BaseController {
     return ResponseEntity.status(HttpStatus.OK).body(productDTO);
   }
 
-  @PutMapping(value = "/{productId}")
+  @PutMapping(value = "/products/{productId}")
   public ResponseEntity<ProductDTO> update(@PathVariable("productId") final Long productId, @RequestBody final ProductForm productForm) {
     productForm.setId(productId);
     final ProductDTO productDTO = productDelegate.update(productForm);
